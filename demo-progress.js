@@ -36,7 +36,7 @@ window.DEMO_PROGRESS = [
         "pointDoubleFault": "DF",
         "pointHand": "F",
         "pointNet": "",
-        "pointServeTime": "1st"
+        "pointServeTime": "2nd"
     },
     {
         "pointsP1": "30",
