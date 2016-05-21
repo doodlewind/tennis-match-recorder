@@ -94,6 +94,7 @@ ustcTennis.controller('ScoringCtrl', function($scope, matchService, progressServ
     $scope.currentPoint = {
         serveTime: '1st',
         hand: '',
+        doubleFault: '',
         net: ''
     };
 
@@ -113,20 +114,36 @@ ustcTennis.controller('ScoringCtrl', function($scope, matchService, progressServ
             $scope.currentPoint.serveTime = '2nd';
         }
         // when 2nd serve is out
-        // set current currentPoint to double fault
-        else if ($scope.currentPoint.serveTime == '2nd') {
+        // set current point to double fault
+        else if ($scope.currentPoint.serveTime == '2nd' && $scope.outBtn == 'OUT') {
             // when server makes double fault, the opponent wins
             $scope.currentPoint.win = ($scope.status.currentServer === 'P1') ? 'P2' : 'P1';
             $scope.currentPoint.type = 'UE';
             $scope.currentPoint.hand = 'F';
             $scope.currentPoint.net = '';
+            $scope.currentPoint.doubleFault = 'DF';
+            $scope.outBtn = 'Double F';
+        } else {
+            // reset all buttons
+            clearBtnStatus();
         }
+
     };
 
     var endMatch = function(winner) {
         progressService.addProgress($scope.progress);
         $location.path('result');
         alert("End of Match, Winner is " + winner + "!");
+    };
+
+    var clearBtnStatus = function() {
+        $scope.currentPoint.serveTime = "1st";
+        $scope.outBtn = 'OUT';
+        $scope.currentPoint.doubleFault = "";
+        $scope.currentPoint.win = "";
+        $scope.currentPoint.type = "";
+        $scope.currentPoint.hand = "";
+        $scope.currentPoint.net = "";
     };
 
     var updatePointRegular = function() {
@@ -193,18 +210,13 @@ ustcTennis.controller('ScoringCtrl', function($scope, matchService, progressServ
             pointServer: $scope.status.currentServer,
             pointWin: $scope.currentPoint.win,
             pointType: $scope.currentPoint.type,
-            pointHand: $scope.currentPoint.hand,
-            pointNet: $scope.currentPoint.net,
+            pointDoubleFault: $scope.currentPoint.doubleFault === null ? '' : $scope.currentPoint.doubleFault,
+            pointHand: $scope.currentPoint.hand === null ? '' : $scope.currentPoint.hand,
+            pointNet: $scope.currentPoint.net === null ? '' : $scope.currentPoint.net,
             pointServeTime: $scope.currentPoint.serveTime
         };
         $scope.progress.push(pointToSave);
-
-        // clear button status
-        $scope.currentPoint.serveTime = "1st";
-        $scope.currentPoint.win = "";
-        $scope.currentPoint.type = "";
-        $scope.currentPoint.hand = "";
-        $scope.currentPoint.net = "";
+        clearBtnStatus();
     };
 
     // update current point
@@ -226,7 +238,123 @@ ustcTennis.controller('ScoringCtrl', function($scope, matchService, progressServ
 ustcTennis.controller('ResultCtrl', function($scope, matchService, progressService) {
     $scope.match = matchService.getMatch();
     $scope.progress = progressService.getProgress();
+
     var progressLen = $scope.progress.length;
     $scope.match.endSetsP1 = $scope.progress[progressLen - 1].setsP1;
     $scope.match.endSetsP2 = $scope.progress[progressLen - 1].setsP2;
+
+    function PlayerStat() {
+        this.firstServeIn =  0;
+        this.firstServeAll = 0;
+        this.firstServeWon = 0;
+        this.secondServeWon = 0;
+        this.secondServeAll = 0;
+        this.ace = 0;
+        this.doubleFault = 0;
+        this.winner = {'F': 0, 'B': 0};
+        this.forcedErr = {'F': 0, 'B': 0};
+        this.netPoint = {'won': 0, 'all': 0};
+        this.breakPoint = {'won': 0, 'all': 0};
+        this.total = 0;
+    }
+    var p1 = new PlayerStat();
+    var p2 = new PlayerStat();
+
+    // stats for P1
+    for (var i = 0; i < progressLen; i++) {
+        var point = $scope.progress[i];
+        if (point['pointServer'] === 'P1' && point['pointServeTime'] === '1st') {
+            p1.firstServeIn++;
+        }
+        if (point['pointServer'] === 'P1') {
+            p1.firstServeAll++;
+        }
+        if (point['pointServer'] === 'P1' && point['pointWin'] === 'P1') {
+            p1.firstServeWon++;
+        }
+        if (point['pointServer'] === 'P1' && point['pointServeTime'] === '2nd' && point['pointWin'] === 'P1') {
+            p1.secondServeWon++;
+        }
+        if (point['pointServer'] === 'P1' && point['pointServeTime'] === '2nd') {
+            p1.secondServeAll++;
+        }
+        if (point['pointServer'] === 'P1' && point['pointType'] === 'ACE') {
+            p1.ace++;
+        }
+        if (point['pointServer'] === 'P1' && point['pointDoubleFault'] === 'DF') {
+            p1.doubleFault++;
+        }
+        if (point['pointWin'] === 'P1' && point['pointType'] === 'W') {
+            p1.winner[point['pointHand']]++;
+        }
+        if (point['pointWin'] === 'P2' && point['pointType'] === 'FE') {
+            p1.forcedErr[point['pointHand']]++;
+        }
+        if (point['pointNet'] === 'P1') {
+            p1.netPoint['all']++;
+            if (point['pointWin'] === 'P1') {
+                p1.netPoint['won']++;
+            }
+        }
+        if (point['pointServer'] === 'P2' && point['pointsP1'] === 'Adv.') {
+            p1.breakPoint['all']++;
+            if (point['pointWin'] === 'P1') {
+                p1.breakPoint['won']++;
+            }
+        }
+        if (point['pointWin'] === 'P1') {
+            p1.total++;
+        }
+    }
+
+    // stats for P2
+    for (var i = 0; i < progressLen; i++) {
+        var point = $scope.progress[i];
+        if (point['pointServer'] === 'P2' && point['pointServeTime'] === '1st') {
+            p2.firstServeIn++;
+        }
+        if (point['pointServer'] === 'P2') {
+            p2.firstServeAll++;
+        }
+        if (point['pointServer'] === 'P2' && point['pointWin'] === 'P2') {
+            p2.firstServeWon++;
+        }
+        if (point['pointServer'] === 'P2' && point['pointServeTime'] === '2nd' && point['pointWin'] === 'P2') {
+            p2.secondServeWon++;
+        }
+        if (point['pointServer'] === 'P2' && point['pointServeTime'] === '2nd') {
+            p2.secondServeAll++;
+        }
+        if (point['pointServer'] === 'P2' && point['pointType'] === 'ACE') {
+            p2.ace++;
+        }
+        if (point['pointServer'] === 'P2' && point['pointDoubleFault'] === 'DF') {
+            p2.doubleFault++;
+        }
+        if (point['pointWin'] === 'P2' && point['pointType'] === 'W') {
+            p2.winner[point['pointHand']]++;
+        }
+        if (point['pointWin'] === 'P1' && point['pointType'] === 'FE') {
+            p2.forcedErr[point['pointHand']]++;
+        }
+        if (point['pointNet'] === 'P2') {
+            p2.netPoint['all']++;
+            if (point['pointWin'] === 'P2') {
+                p2.netPoint['won']++;
+            }
+        }
+        if (point['pointServer'] === 'P1' && point['pointsP2'] === 'Adv.') {
+            p2.breakPoint['all']++;
+            if (point['pointWin'] === 'P2') {
+                p2.breakPoint['won']++;
+            }
+        }
+        if (point['pointWin'] === 'P2') {
+            p2.total++;
+        }
+    }
+
+    $scope.p1 = p1;
+    $scope.p2 = p2;
+
 });

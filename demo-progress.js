@@ -7,6 +7,7 @@ window.DEMO_PROGRESS = [
         "pointServer": "P1",
         "pointWin": "P1",
         "pointType": "ACE",
+        "pointDoubleFault": "",
         "pointHand": "F",
         "pointNet": "",
         "pointServeTime": "1st"
@@ -19,6 +20,7 @@ window.DEMO_PROGRESS = [
         "pointServer": "P1",
         "pointWin": "P1",
         "pointType": "W",
+        "pointDoubleFault": "",
         "pointHand": "B",
         "pointNet": "",
         "pointServeTime": "1st"
@@ -31,6 +33,7 @@ window.DEMO_PROGRESS = [
         "pointServer": "P1",
         "pointWin": "P2",
         "pointType": "UE",
+        "pointDoubleFault": "DF",
         "pointHand": "F",
         "pointNet": "",
         "pointServeTime": "1st"
@@ -43,6 +46,7 @@ window.DEMO_PROGRESS = [
         "pointServer": "P1",
         "pointWin": "P2",
         "pointType": "UE",
+        "pointDoubleFault": "",
         "pointHand": "F",
         "pointNet": "",
         "pointServeTime": "1st"
@@ -55,6 +59,7 @@ window.DEMO_PROGRESS = [
         "pointServer": "P1",
         "pointWin": "P1",
         "pointType": "ACE",
+        "pointDoubleFault": "",
         "pointHand": "F",
         "pointNet": "",
         "pointServeTime": "1st"
@@ -79,6 +84,7 @@ window.DEMO_PROGRESS = [
         "pointServer": "P2",
         "pointWin": "P2",
         "pointType": "W",
+        "pointDoubleFault": "",
         "pointHand": "F",
         "pointNet": "",
         "pointServeTime": "1st"
@@ -91,6 +97,7 @@ window.DEMO_PROGRESS = [
         "pointServer": "P2",
         "pointWin": "P1",
         "pointType": "UE",
+        "pointDoubleFault": "",
         "pointHand": "F",
         "pointNet": "P2",
         "pointServeTime": "1st"
@@ -103,6 +110,7 @@ window.DEMO_PROGRESS = [
         "pointServer": "P2",
         "pointWin": "P1",
         "pointType": "FE",
+        "pointDoubleFault": "",
         "pointHand": "F",
         "pointNet": "",
         "pointServeTime": "1st"
@@ -115,6 +123,7 @@ window.DEMO_PROGRESS = [
         "pointServer": "P2",
         "pointWin": "P2",
         "pointType": "UE",
+        "pointDoubleFault": "",
         "pointHand": "B",
         "pointNet": "",
         "pointServeTime": "1st"
@@ -127,6 +136,7 @@ window.DEMO_PROGRESS = [
         "pointServer": "P2",
         "pointWin": "P2",
         "pointType": "UE",
+        "pointDoubleFault": "",
         "pointHand": "B",
         "pointNet": "",
         "pointServeTime": "1st"
@@ -139,8 +149,9 @@ window.DEMO_PROGRESS = [
         "pointServer": "P2",
         "pointWin": "P1",
         "pointType": "W",
+        "pointDoubleFault": "",
         "pointHand": "B",
-        "pointNet": null,
+        "pointNet": "",
         "pointServeTime": "1st"
     },
     {
@@ -151,6 +162,7 @@ window.DEMO_PROGRESS = [
         "pointServer": "P2",
         "pointWin": "P1",
         "pointType": "FE",
+        "pointDoubleFault": "",
         "pointHand": "F",
         "pointNet": "",
         "pointServeTime": "1st"
@@ -163,6 +175,7 @@ window.DEMO_PROGRESS = [
         "pointServer": "P2",
         "pointWin": "P1",
         "pointType": "FE",
+        "pointDoubleFault": "",
         "pointHand": "F",
         "pointNet": "",
         "pointServeTime": "1st"

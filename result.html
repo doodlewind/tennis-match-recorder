@@ -13,45 +13,57 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>42/43</td><td>1st Serve In</td><td>42/43</td>
+                    <td>{{p1.firstServeIn}}/{{p1.firstServeAll}}</td>
+                    <td>1st Serve In</td>
+                    <td>{{p2.firstServeIn}}/{{p2.firstServeAll}}</td>
                 </tr>
                 <tr>
-                    <td>42/43</td><td>1st Serve Won</td><td>42/43</td>
+                    <td>{{p1.firstServeWon}}/{{p1.firstServeAll}}</td>
+                    <td>1st Serve Won</td>
+                    <td>{{p2.firstServeWon}}/{{p2.firstServeAll}}</td>
                 </tr>
                 <tr>
-                    <td>42/43</td><td>2nd Serve Won</td><td>42/43</td>
+                    <td>{{p1.secondServeWon}}/{{p1.secondServeAll}}</td>
+                    <td>2nd Serve Won</td>
+                    <td>{{p2.secondServeWon}}/{{p2.secondServeAll}}</td>
                 </tr>
                 <tr>
-                    <td>42</td><td>ACES</td><td>42</td>
+                    <td>{{p1.ace}}</td><td>ACES</td><td>{{p2.ace}}</td>
                 </tr>
                 <tr>
-                    <td>42</td><td>Double Faults</td><td>42</td>
+                    <td>{{p1.doubleFault}}</td><td>Double Faults</td><td>{{p2.doubleFault}}</td>
                 </tr>
                 <tr>
-                    <td>4<br><small>1/2/1</small></td>
+                    <td>{{p1.winner.F + p1.winner.B + p1.ace}}<br><small>{{p1.winner.F}}/{{p1.winner.B}}/{{p1.ace}}</small></td>
                     <td>Winners<br><small>Forehand/Backhand/ACE</small></td>
-                    <td>5<br><small>0/1/2</small></td>
+                    <td>{{p2.winner.F + p2.winner.B + p2.ace}}<br><small>{{p2.winner.F}}/{{p2.winner.B}}/{{p2.ace}}</small></td>
                 </tr>
                 <tr>
-                    <td>42<br><small>1/2/1</small></td>
+                    <td>{{p1.forcedErr.F + p1.forcedErr.B + p1.doubleFault}}<br><small>{{p1.forcedErr.F}}/{{p1.forcedErr.B}}/{{p1.doubleFault}}</small></td>
                     <td>Forced Errors<br><small>Forehand/Backhand/Double Fault</small></td>
-                    <td>42<br><small>1/0/0</small></td>
+                    <td>{{p2.forcedErr.F + p2.forcedErr.B + p2.doubleFault}}<br><small>{{p2.forcedErr.F}}/{{p2.forcedErr.B}}/{{p2.doubleFault}}</small></td>
                 </tr>
                 <tr>
-                    <td>2/2</td><td>Net Points Won</td><td>1/2</td>
+                    <td>{{p1.netPoint.won}}/{{p1.netPoint.all}}</td>
+                    <td>Net Points Won</td>
+                    <td>{{p2.netPoint.won}}/{{p2.netPoint.all}}</td>
                 </tr>
                 <tr>
-                    <td>3/7</td><td>Break Points Won</td><td>0/1</td>
+                    <td>{{p1.breakPoint.won}}/{{p1.breakPoint.all}}</td>
+                    <td>Break Points Won</td>
+                    <td>{{p2.breakPoint.won}}/{{p2.breakPoint.all}}</td>
                 </tr>
                 <tr>
-                    <td>42</td><td>Total Points Won</td><td>42</td>
+                    <td>{{p1.total}}</td><td>Total Points Won</td><td>{{p2.total}}</td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <div class="col-xs-12">
+    <div hidden class="col-xs-12">
         <!--debug-->
         <br>
-        <pre ng-bind="progress | json"></pre>
+        <!--<pre ng-bind="p1 | json"></pre>-->
+        <br>
+        <!--<pre ng-bind="p2 | json"></pre>-->
     </div>
 </div>
