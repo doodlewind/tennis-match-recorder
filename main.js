@@ -161,10 +161,14 @@ matchRecorder.controller('ScoringCtrl', function($scope, matchService, progressS
         if (nextPoint[2] == true) {
             if (currentWinner === 'P1') {
                 $scope.status.setsP1 = parseInt($scope.status.setsP1) + 1;
-                $scope.status.currentServer = 'P2';
             } else {
                 $scope.status.setsP2 = parseInt($scope.status.setsP2) + 1;
+            }
+            // swap server
+            if ($scope.status.currentServer === 'P2') {
                 $scope.status.currentServer = 'P1';
+            } else {
+                $scope.status.currentServer = 'P2';
             }
         }
 
