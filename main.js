@@ -252,7 +252,7 @@ ustcTennis.controller('ResultCtrl', function($scope, matchService, progressServi
         this.ace = 0;
         this.doubleFault = 0;
         this.winner = {'F': 0, 'B': 0};
-        this.forcedErr = {'F': 0, 'B': 0};
+        this.unforcedErr = {'F': 0, 'B': 0};
         this.netPoint = {'won': 0, 'all': 0};
         this.breakPoint = {'won': 0, 'all': 0};
         this.total = 0;
@@ -287,8 +287,8 @@ ustcTennis.controller('ResultCtrl', function($scope, matchService, progressServi
         if (point['pointWin'] === 'P1' && point['pointType'] === 'W') {
             p1.winner[point['pointHand']]++;
         }
-        if (point['pointWin'] === 'P2' && point['pointType'] === 'FE') {
-            p1.forcedErr[point['pointHand']]++;
+        if (point['pointWin'] === 'P2' && point['pointType'] === 'UE') {
+            p1.unforcedErr[point['pointHand']]++;
         }
         if (point['pointNet'] === 'P1') {
             p1.netPoint['all']++;
@@ -334,8 +334,8 @@ ustcTennis.controller('ResultCtrl', function($scope, matchService, progressServi
         if (point['pointWin'] === 'P2' && point['pointType'] === 'W') {
             p2.winner[point['pointHand']]++;
         }
-        if (point['pointWin'] === 'P1' && point['pointType'] === 'FE') {
-            p2.forcedErr[point['pointHand']]++;
+        if (point['pointWin'] === 'P1' && point['pointType'] === 'UE') {
+            p2.unforcedErr[point['pointHand']]++;
         }
         if (point['pointNet'] === 'P2') {
             p2.netPoint['all']++;
