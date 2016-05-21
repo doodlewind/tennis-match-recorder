@@ -1,8 +1,8 @@
 'use strict';
 
-var ustcTennis = angular.module('ustc.tennis', ['ui.router', 'ui.bootstrap']);
+var matchRecorder = angular.module('match.recorder', ['ui.router', 'ui.bootstrap']);
 
-ustcTennis.config(function($stateProvider, $urlRouterProvider) {
+matchRecorder.config(function($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('config');
     $stateProvider
         .state('config', {
@@ -27,7 +27,7 @@ ustcTennis.config(function($stateProvider, $urlRouterProvider) {
 });
 
 // pass match data to scoring page
-ustcTennis.service('matchService', function() {
+matchRecorder.service('matchService', function() {
     var match = {};
 
     var addMatch = function(customMatch) {
@@ -56,7 +56,7 @@ ustcTennis.service('matchService', function() {
 });
 
 // pass progress data to result page
-ustcTennis.service('progressService', function() {
+matchRecorder.service('progressService', function() {
     var progress = [];
 
     var addProgress = function(customProgress) {
@@ -77,14 +77,14 @@ ustcTennis.service('progressService', function() {
     }
 });
 
-ustcTennis.controller('ConfigCtrl', function($scope, matchService) {
+matchRecorder.controller('ConfigCtrl', function($scope, matchService) {
     // provide config data to service,
     $scope.submitMatch = function () {
         matchService.addMatch($scope.match);
     };
 });
 
-ustcTennis.controller('ScoringCtrl', function($scope, matchService, progressService, $location) {
+matchRecorder.controller('ScoringCtrl', function($scope, matchService, progressService, $location) {
     $scope.match = matchService.getMatch();
 
     // record all points in this match
@@ -235,7 +235,7 @@ ustcTennis.controller('ScoringCtrl', function($scope, matchService, progressServ
 
 });
 
-ustcTennis.controller('ResultCtrl', function($scope, matchService, progressService) {
+matchRecorder.controller('ResultCtrl', function($scope, matchService, progressService) {
     $scope.match = matchService.getMatch();
     $scope.progress = progressService.getProgress();
 
